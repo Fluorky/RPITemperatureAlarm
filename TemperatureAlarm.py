@@ -14,7 +14,6 @@ tmax = 29.0
 tmin = 2.0
 sensor = w1thermsensor.W1ThermSensor()
 
-import time
 logs = open('logs.txt', 'w')
 for i in range (0,60):
     temp=sensor.get_temperature()
