@@ -3,14 +3,18 @@ import w1thermsensor
 import RPi.GPIO as GPIO
 from datetime import datetime
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-GPIO.setup(21, GPIO.OUT)
-GPIO.setup(17,GPIO.OUT)
-GPIO.setup(26,GPIO.OUT)
-GPIO.output(21, GPIO.HIGH)
-GPIO.output(26,GPIO.LOW)
-GPIO.output(17,GPIO.LOW)
+class GPIOValues:
+    def __init__(self):
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        GPIO.setup(21, GPIO.OUT)
+        GPIO.setup(17,GPIO.OUT)
+        GPIO.setup(26,GPIO.OUT)
+
+    def defaultPinsValues(self):
+        GPIO.output(21, GPIO.HIGH)
+        GPIO.output(26,GPIO.LOW)
+        GPIO.output(17,GPIO.LOW)
 
 class DefaultValues:
     def __init__(self):
@@ -22,6 +26,9 @@ class DateWithTime:
     def __init__(self):
         self.now = datetime.now()
         self.dateTime = self.now.strftime("%m/%d/%Y %H:%M:%S")
+
+gpins = GPIOValues()
+gpins.defaultPinsValues()
 
 with open('logs.txt', 'w') as logs:
  for i in range (0,10):#60):
@@ -50,6 +57,4 @@ with open('logs.txt', 'w') as logs:
     print(mess,temper, end="\n")
     time.sleep(1)
 
-GPIO.output(21, GPIO.HIGH)
-GPIO.output(26, GPIO.LOW)
-GPIO.output(17, GPIO.LOW)
+gpins.defaultPinsValues()
