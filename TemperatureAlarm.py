@@ -15,6 +15,11 @@ class GPIOValues:
         GPIO.output(21, GPIO.HIGH)
         GPIO.output(26,GPIO.LOW)
         GPIO.output(17,GPIO.LOW)
+    
+    def beepShine(self,pin1, pin2):
+        GPIO.output(pin1, GPIO.LOW)
+        GPIO.output(pin2, GPIO.HIGH)
+        
 
 class DefaultValues:
     def __init__(self):
@@ -35,19 +40,15 @@ with open('logs.txt', 'w') as logs:
     dv=DefaultValues()
     temp=dv.sensor.get_temperature()
     if temp > dv.tmax:
-        GPIO.output(21, GPIO.LOW)
-        GPIO.output(26, GPIO.HIGH)
+        gpins.beepShine(21,26)
         print("HOT")
         logs.write('HOT!')
     elif temp < dv.tmin:
-        GPIO.output(21, GPIO.LOW)
-        GPIO.output(17, GPIO.HIGH)
+        gpins.beepShine(21,17)
         print("ICE ALERT")
         logs.write('ICE ALERT')
     else:
-        GPIO.output(21, GPIO.HIGH)
-        GPIO.output(17, GPIO.LOW)
-        GPIO.output(26, GPIO.LOW)
+        gpins.defaultPinsValues()        
         
     temper=str(temp)
     dwt = DateWithTime()
