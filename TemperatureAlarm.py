@@ -25,15 +25,17 @@ class GPIOValues:
         
 
 class DefaultValues:
-    def __init__(self):
-        self.tmax = 29.0
-        self.tmin = 2.0
+    def __init__(self,tmax=29.0,tmin=2.0):
+        self.tmax = tmax
+        self.tmin = tmin
         self.sensor = w1thermsensor.W1ThermSensor()
         
 class DateWithTime:
     def __init__(self):
         self.now = datetime.now()
         self.dateTime = self.now.strftime("%m/%d/%Y %H:%M:%S")
+    def getTime(self):
+        return self.dateTime
 
 gpins = GPIOValues()
 gpins.defaultPinsValues()
@@ -54,8 +56,7 @@ with open('logs.txt', 'w') as logs:
         gpins.defaultPinsValues()        
         
     temper=str(temp)
-    dwt = DateWithTime()
-    mess = dwt.dateTime
+    mess = DateWithTime().getTime()
     
     logs.write(mess+" "+temper+'\n')
     print(mess,temper, end="\n")
