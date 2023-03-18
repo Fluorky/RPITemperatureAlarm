@@ -8,8 +8,8 @@ class GPIOValues:
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         GPIO.setup(21, GPIO.OUT)
-        GPIO.setup(17,GPIO.OUT)
         GPIO.setup(26,GPIO.OUT)
+        GPIO.setup(17,GPIO.OUT)
 
     def defaultPinsValues(self):
         GPIO.output(21, GPIO.HIGH)
@@ -19,6 +19,9 @@ class GPIOValues:
     def beepShine(self,pin1, pin2):
         GPIO.output(pin1, GPIO.LOW)
         GPIO.output(pin2, GPIO.HIGH)
+
+    def cleanupGPIO(self):
+        GPIO.cleanup()
         
 
 class DefaultValues:
@@ -59,3 +62,4 @@ with open('logs.txt', 'w') as logs:
     time.sleep(1)
 
 gpins.defaultPinsValues()
+gpins.cleanupGPIO()
